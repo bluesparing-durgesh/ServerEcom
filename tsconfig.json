@@ -6,10 +6,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots" : ["./src/types", "./node_modules/@types"],
+    "typeRoots" : ["./api/types", "./node_modules/@types"],
     "types": ["node", "express"],
     "outDir": "./dist"
   },
-  "include": ["src/**/*"],
+  "include": ["api/**/*"],
   "exclude": ["node_modules"]
 }
