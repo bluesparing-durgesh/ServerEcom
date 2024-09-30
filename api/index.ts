@@ -15,8 +15,8 @@ app.use(cors());
 app.get("/",async(req: Request, res: Response) => {
   return res.send("hello");
 });
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/category", categoryRouter);
+// app.use("/api/v1/user", userRouter);
+// app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
 connectDB();
 
