@@ -11,7 +11,7 @@ router.put("/update/:id",verifyJwt,updateProductController)
 router.delete("/delete/:id",verifyJwt,deleteProductController)
 router.post("/upload-excel",verifyJwt,uploadMiddleware,AddProductByExcel)
 router.get("/getbyid/:id",getProductByIdController)
-router.get("/get",getAllProductsController)
+router.get("/get/:id?",getAllProductsController)
 router.get("/getbyname/:name",getProductByNameController)
 router.get("/filter",filterProductsController)
 export default router;

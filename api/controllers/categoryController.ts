@@ -90,18 +90,13 @@ export const getAllCategoriesController = async (
   req: Request,
   res: Response
 ) => {
-
-
   try {
-    const categories = await Category.find()
-      .sort({ createdAt: -1 })
-  
+    const categories = await Category.find().sort({ createdAt: -1 });
 
     return res.status(200).send({
       success: true,
       message: "Categories fetched successfully",
       categories,
-     
     });
   } catch (error) {
     return sendErrorResponse(res, 500, "Error in fetching categories");
