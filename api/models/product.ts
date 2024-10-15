@@ -11,7 +11,7 @@ export interface IProduct extends Document {
   image:string
   shipping?: boolean;
   rating: number;
-  isAddtocart?:boolean
+
 }
 
 
@@ -58,10 +58,7 @@ const productSchema: Schema<IProduct> = new Schema(
       required: true,
       index: true, 
     },
-    isAddtocart: {
-      type: Boolean,
-      default:false
-    },
+   
   },
   { timestamps: true } 
 );

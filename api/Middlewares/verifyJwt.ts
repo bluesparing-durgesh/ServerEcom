@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user";
 
 export const verifyJwt = async (req: Request, res: Response, next: NextFunction) => {
+
   try {
     const token =
       req.cookies?.accessToken ||
@@ -22,10 +23,10 @@ export const verifyJwt = async (req: Request, res: Response, next: NextFunction)
     if (!user) {
       return sendErrorResponse(res, 401, "Invalid Access Token");
     }
-    
+  
     req.user = user;
     next();
   } catch (error) {
-    sendErrorResponse(res, 500, "Internal server error");
+    sendErrorResponse(res, 500, "token Internal server error");
   }
 };
