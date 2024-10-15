@@ -4,7 +4,7 @@ import {
   getdeliveryByOrderIdController,
   updateCanceledDeliveryController,
   updateDeliveryController,
-} from "../controllers/DeliveryController";
+} from "../controllers/deliveryController";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Delivery from "../models/Delivery";
+import Delivery from "../models/delivery";
 import { sendErrorResponse } from "../utils/responseHandler";
 import Order, { DeliveryStatus } from "../models/order";
 import { startSession } from "mongoose";

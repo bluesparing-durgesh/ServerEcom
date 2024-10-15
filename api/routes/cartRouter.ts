@@ -1,13 +1,12 @@
 import { Router } from "express";
 import { verifyJwt } from "../Middlewares/verifyJwt";
-import {
-  createCartEntry,
+import {   createCartEntry,
   deleteCartEntry,
   deleteUserCart,
   getCartCount,
   getUserCart,
-  updateCartEntry,
-} from "../controllers/CartController";
+  updateCartEntry, } from "../controllers/cartController";
+
 
 const router = Router();
 

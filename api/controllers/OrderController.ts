@@ -1,3 +1,4 @@
+import { buyProductController } from './paymetController';
 import { Request, Response } from "express";
 import { sendErrorResponse } from "../utils/responseHandler";
 import Order, {
@@ -5,9 +6,9 @@ import Order, {
   IOrderItem,
   PaymentMethod,
 } from "../models/order";
-import { buyProductController } from "./PaymetController";
+
 import { startSession } from "mongoose";
-import Delivery from "../models/Delivery";
+import Delivery from "../models/delivery";
 
 
 export const createOrderController = async (req: Request, res: Response) => {
