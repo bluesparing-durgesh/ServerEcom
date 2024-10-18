@@ -10,6 +10,7 @@ export interface IStep {
 export interface IDelivery extends Document {
   orderId: string;
   currentStatus: DeliveryStatus;
+  deliveredDate?: string;
   orderSteps: IStep[];
 }
 
@@ -21,6 +22,7 @@ const StepSchema: Schema = new Schema({
 
 const DeliverySchema: Schema = new Schema({
   orderId: { type: String, required: true },
+  deliveredDate: { type: String },
   currentStatus: {
     type: String,
     enum: Object.values(DeliveryStatus),

@@ -1,4 +1,4 @@
-import { buyProductController } from './paymetController';
+import { buyProductController } from "./paymetController";
 import { Request, Response } from "express";
 import { sendErrorResponse } from "../utils/responseHandler";
 import Order, {
@@ -9,7 +9,6 @@ import Order, {
 
 import { startSession } from "mongoose";
 import Delivery from "../models/delivery";
-
 
 export const createOrderController = async (req: Request, res: Response) => {
   const session = await startSession();
@@ -36,16 +35,27 @@ export const createOrderController = async (req: Request, res: Response) => {
       return sendErrorResponse(res, 400, "Shipping address is required.");
     }
     if (!totalPrice || totalPrice <= 0) {
-      return sendErrorResponse(res, 400, "Total price must be a positive number.");
+      return sendErrorResponse(
+        res,
+        400,
+        "Total price must be a positive number."
+      );
     }
-    if (!paymentMethod || !Object.values(PaymentMethod).includes(paymentMethod)) {
+    if (
+      !paymentMethod ||
+      !Object.values(PaymentMethod).includes(paymentMethod)
+    ) {
       return sendErrorResponse(res, 400, "Invalid payment method.");
     }
 
     let payment = null;
     if (paymentMethod !== PaymentMethod.CASH_ON_DELIVERY) {
       if (!cardNumber || !bank) {
-        return sendErrorResponse(res, 400, "Payment information is required for online payment.");
+        return sendErrorResponse(
+          res,
+          400,
+          "Payment information is required for online payment."
+        );
       }
 
       payment = await buyProductController(user, totalPrice, cardNumber, bank);
@@ -56,7 +66,6 @@ export const createOrderController = async (req: Request, res: Response) => {
       }
     }
 
-    
     const orderData = orderItems.map((ele: IOrderItem) => ({
       shippingAddress,
       name: ele.name,
@@ -71,10 +80,9 @@ export const createOrderController = async (req: Request, res: Response) => {
       quantity: ele.quantity,
     }));
 
- 
     const orders = await Order.insertMany(orderData, { session });
 
-    const deliveryData = orders.map(order => ({
+    const deliveryData = orders.map((order) => ({
       orderId: order._id,
       currentStatus: DeliveryStatus.ORDERED,
       orderSteps: [
@@ -86,10 +94,8 @@ export const createOrderController = async (req: Request, res: Response) => {
       ],
     }));
 
-   
     await Delivery.insertMany(deliveryData, { session });
 
- 
     await session.commitTransaction();
     session.endSession();
 
@@ -98,16 +104,18 @@ export const createOrderController = async (req: Request, res: Response) => {
       message: "Order and delivery created successfully.",
       orders,
     });
-
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    return sendErrorResponse(res, 500, "Error creating order and delivery, please try again.");
+    return sendErrorResponse(
+      res,
+      500,
+      "Error creating order and delivery, please try again."
+    );
   }
 };
 
-
-export const getUserOrder = async (req: Request, res: Response) => {
+export const getUserOrderController = async (req: Request, res: Response) => {
   try {
     if (!req.user || !req.user._id) {
       return sendErrorResponse(res, 400, "User information is missing.");
@@ -121,5 +129,23 @@ export const getUserOrder = async (req: Request, res: Response) => {
     });
   } catch (error) {
     return sendErrorResponse(res, 500, "Error getting user order");
+  }
+};
+
+export const getAllOrderController = async (req: Request, res: Response) => {
+  try {
+    if (!req.user || !req.user._id) {
+      return sendErrorResponse(res, 400, "User information is missing.");
+    }
+
+    if (req.user.role !== "admin") {
+      return sendErrorResponse(res, 403, "only admin can access .");
+    }
+
+    const orders = await Order.find();
+
+    return res.status(200).send({ success: true, data: orders });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "Error getting all order");
   }
 };

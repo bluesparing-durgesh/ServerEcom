@@ -1,7 +1,7 @@
 
 import { Router } from 'express';
 import { verifyJwt } from '../Middlewares/verifyJwt';
-import { AddProductByExcel, createProductController, deleteProductController, filterProductsController, getAllProductsController, getProductByIdController, getProductByNameController, updateProductController } from '../controllers/productController';
+import { AddProductByExcel, createProductController, deleteProductController, filterProductsController, getAllProductOnceController, getAllProductsController, getProductByIdController, getProductByNameController, updateProductController } from '../controllers/productController';
 import { uploadMiddleware } from '../Middlewares/uploadMiddleware';
 
 const router = Router();
@@ -14,4 +14,5 @@ router.get("/getbyid/:id",getProductByIdController)
 router.get("/get/:id?",getAllProductsController)
 router.get("/getbyname/:name",getProductByNameController)
 router.get("/filter",filterProductsController)
+router.get("/get-all",verifyJwt,getAllProductOnceController)
 export default router;

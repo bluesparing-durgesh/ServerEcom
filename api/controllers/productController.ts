@@ -122,7 +122,6 @@ export const getAllProductsController = async (req: Request, res: Response) => {
     const limit = parseInt(req.query.limit as string) || 10;
     const { id } = req.params;
 
-   
     const skip = (page - 1) * limit;
 
     const products = await Product.find().limit(limit).skip(skip);
@@ -135,6 +134,24 @@ export const getAllProductsController = async (req: Request, res: Response) => {
       totalProducts,
       totalPages: Math.ceil(totalProducts / limit),
       currentPage: page,
+    });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "Error in retrieving products");
+  }
+};
+export const getAllProductOnceController = async (
+  _: Request,
+  res: Response
+) => {
+  try {
+    const products = await Product.find();
+
+    const totalProducts = await Product.countDocuments();
+
+    return res.status(200).send({
+      success: true,
+      products,
+      totalProducts,
     });
   } catch (error) {
     return sendErrorResponse(res, 500, "Error in retrieving products");

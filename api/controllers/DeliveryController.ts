@@ -11,10 +11,16 @@ export const updateDeliveryController = async (req: Request, res: Response) => {
   try {
     const { orderId } = req.params;
     const { currentStatus, newStep } = req.body;
-
+    let deliveredDate = "";
+    if (orderId === "undefined") {
+      return sendErrorResponse(res, 400, "orderId is null");
+    }
+    if (currentStatus === DeliveryStatus.DELIVERED) {
+      deliveredDate = newStep.samay;
+    }
     // Update the Order status
     const order = await Order.findByIdAndUpdate(
-      { orderId },
+      { _id: orderId },
       { $set: { isDelivered: currentStatus } },
       { new: true, session }
     );
@@ -27,8 +33,8 @@ export const updateDeliveryController = async (req: Request, res: Response) => {
     const updatedDelivery = await Delivery.findOneAndUpdate(
       { orderId },
       {
-        $set: { currentStatus },
-        $push: { orderSteps: newStep },
+        $set: { currentStatus, deliveredDate },
+        $push: { orderSteps: {...newStep,samay:new Date().toISOString()} },
       },
       { new: true, session }
     );
@@ -43,12 +49,12 @@ export const updateDeliveryController = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       message: "Delivery updated successfully",
-      data: updatedDelivery,
+      success:true
     });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-
+console.log(error)
     return sendErrorResponse(res, 500, "Error updating delivery");
   }
 };
@@ -62,7 +68,7 @@ export const updateCanceledDeliveryController = async (
     const { orderId } = req.params;
     const { newOrderSteps } = req.body;
     const order = await Order.findByIdAndUpdate(
-      { orderId },
+      {_id: orderId },
       { $set: { isDelivered: DeliveryStatus.Canceled } },
       { new: true, session }
     );
@@ -77,6 +83,7 @@ export const updateCanceledDeliveryController = async (
         $set: {
           orderSteps: newOrderSteps,
           currentStatus: DeliveryStatus.Canceled,
+          deliveredDate:new Date().toISOString(),
         },
       },
       { new: true, session }
@@ -92,9 +99,10 @@ export const updateCanceledDeliveryController = async (
       message: "Delivery updated successfully",
       data: updatedDelivery,
     });
-  } catch (error) {
+  } catch (error:any) {
     await session.abortTransaction();
     session.endSession();
+    console.log(error)
     return sendErrorResponse(res, 500, "Error updating delivery");
   }
 };
@@ -106,7 +114,7 @@ export const getdeliveryByOrderIdController = async (
   try {
     const { orderId } = req.params;
 
-    if (!orderId) {
+    if (orderId === "undefined") {
       return sendErrorResponse(res, 400, "order id is required");
     }
     const delivery = await Delivery.findOne({ orderId });
