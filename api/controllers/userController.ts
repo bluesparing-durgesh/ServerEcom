@@ -82,3 +82,19 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
     return sendErrorResponse(res, 500, "Internal server error");
   }
 };
+
+export const getAllUserController = async (req: Request, res: Response) => {
+  try {
+    const { user } = req;
+    if (!user) {
+      return sendErrorResponse(res, 404, "user not found");
+    }
+    if (user.role.toLowerCase() !== "admin") {
+      return sendErrorResponse(res, 403, "only admin can access .");
+    }
+    const users = await User.find({ role: "user" }).select('-password');
+    return res.status(200).send({ success: true, users });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "error while fetching user");
+  }
+};

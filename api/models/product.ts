@@ -10,7 +10,7 @@ export interface IProduct extends Document {
   quantity: number;
   image:string
   shipping?: boolean;
-  rating: number;
+  rating?: number;
 
 }
 
@@ -55,7 +55,6 @@ const productSchema: Schema<IProduct> = new Schema(
     },
     rating: {
       type: Number,
-      required: true,
       index: true, 
     },
    

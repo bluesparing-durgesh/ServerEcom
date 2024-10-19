@@ -1,4 +1,7 @@
-import { buyProductController } from "./paymetController";
+import {
+  buyProductController,
+  refundProductController,
+} from "./paymetController";
 import { Request, Response } from "express";
 import { sendErrorResponse } from "../utils/responseHandler";
 import Order, {
@@ -9,6 +12,7 @@ import Order, {
 
 import { startSession } from "mongoose";
 import Delivery from "../models/delivery";
+import Product from "../models/product";
 
 export const createOrderController = async (req: Request, res: Response) => {
   const session = await startSession();
@@ -65,20 +69,23 @@ export const createOrderController = async (req: Request, res: Response) => {
         return sendErrorResponse(res, 500, "Payment function error.");
       }
     }
-
-    const orderData = orderItems.map((ele: IOrderItem) => ({
-      shippingAddress,
-      name: ele.name,
-      image: ele.image,
-      totalPrice: ele.price,
-      product: ele.product,
-      paymentMethod,
-      payment: payment || null,
-      isPaid: paymentMethod !== PaymentMethod.CASH_ON_DELIVERY,
-      isDelivered: DeliveryStatus.ORDERED,
-      user,
-      quantity: ele.quantity,
-    }));
+    let productIds: string[] = [];
+    const orderData = orderItems.map((ele: IOrderItem) => {
+      productIds.push(ele.product.toString());
+      return {
+        shippingAddress,
+        name: ele.name,
+        image: ele.image,
+        totalPrice: ele.price,
+        product: ele.product,
+        paymentMethod,
+        payment: payment || null,
+        isPaid: paymentMethod !== PaymentMethod.CASH_ON_DELIVERY,
+        isDelivered: DeliveryStatus.ORDERED,
+        user,
+        quantity: ele.quantity,
+      };
+    });
 
     const orders = await Order.insertMany(orderData, { session });
 
@@ -95,7 +102,13 @@ export const createOrderController = async (req: Request, res: Response) => {
     }));
 
     await Delivery.insertMany(deliveryData, { session });
-
+    await Product.updateMany(
+      { _id: { $in: productIds } },
+      {
+        $inc: { quantity: -1 },
+      },
+      { session }
+    );
     await session.commitTransaction();
     session.endSession();
 
@@ -144,8 +157,111 @@ export const getAllOrderController = async (req: Request, res: Response) => {
 
     const orders = await Order.find();
 
-    return res.status(200).send({ success: true, data: orders });
+    return res.status(200).send({ success: true, order: orders });
   } catch (error) {
     return sendErrorResponse(res, 500, "Error getting all order");
+  }
+};
+
+export const refundOrderController = async (req: Request, res: Response) => {
+  try {
+    if (!req.user || !req.user._id) {
+      return sendErrorResponse(res, 400, "User information is missing.");
+    }
+
+    if (req.user.role !== "admin") {
+      return sendErrorResponse(res, 403, "only admin can access .");
+    }
+
+    const { orderId, userId, amount, cardNumber, bank } = req.body;
+    if (!orderId || !userId || !amount || !cardNumber || !bank) {
+      return sendErrorResponse(res, 404, "All field are required ");
+    }
+
+    const paymentId = await refundProductController(
+      userId,
+      amount,
+      cardNumber,
+      bank
+    );
+    if (!paymentId) {
+      return sendErrorResponse(res, 500, "redundig payment error");
+    }
+
+    const updateOrder = await Order.findByIdAndUpdate(
+      { _id: orderId },
+      {
+        $set: {
+          refund: paymentId,
+          isPaid: false,
+        },
+      },
+      { new: true }
+    );
+
+    return res.status(200).send({
+      order: updateOrder,
+    });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "Error Refunding payment");
+  }
+};
+
+export const updateCODProductController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    if (!req.user || !req.user._id) {
+      return sendErrorResponse(res, 400, "User information is missing.");
+    }
+    const userId = req.user._id;
+    const { orderId, amount, cardNumber, bank } = req.body;
+    if (!orderId || !userId || !amount || !cardNumber || !bank) {
+      return sendErrorResponse(res, 404, "All field are required ");
+    }
+
+    const paymentId = await buyProductController(
+      userId,
+      amount,
+      cardNumber,
+      bank
+    );
+    if (!paymentId) {
+      return sendErrorResponse(res, 500, "update payment error");
+    }
+
+    const updateOrder = await Order.findByIdAndUpdate(
+      { _id: orderId },
+      {
+        $set: {
+          payment: paymentId,
+          isPaid: true,
+        },
+      },
+      { new: true }
+    );
+    return res.status(200).send({
+      order: updateOrder,
+    });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "error while updating payment ");
+  }
+};
+
+export const getOrderByOrderIdController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    if (!req.user || !req.user._id) {
+      return sendErrorResponse(res, 400, "User information is missing.");
+    }
+    const { id } = req.params;
+
+    const data = await Order.findById(id);
+    return res.status(200).send({ order: data });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "error while getting  order ");
   }
 };

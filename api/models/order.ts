@@ -11,7 +11,7 @@ export enum DeliveryStatus {
   OUT_OF_DELIVERY = "out of delivery",
   DELIVERED = "delivered",
   Canceled = "canceled",
-  Refunding = "redunding",
+  Refunding = "refunding",
   Refunded = "redund complete",
 }
 export interface IOrderItem {
@@ -37,6 +37,7 @@ export interface IOrder extends Document {
   paymentMethod: PaymentMethod;
   totalPrice: number;
   payment: mongoose.Schema.Types.ObjectId | null;
+  refund: mongoose.Schema.Types.ObjectId | null;
   isPaid: boolean;
   isDelivered: DeliveryStatus;
   deliveredAt?: Date;
@@ -70,6 +71,10 @@ const orderSchema: Schema<IOrder> = new mongoose.Schema(
       required: true,
     },
     payment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Paymemt",
+    },
+    refund: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Paymemt",
     },

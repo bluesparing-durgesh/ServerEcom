@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-enum PaymentTypes {
+export enum PaymentTypes {
   BUY = "buy",
   REFUND = "refund",
 }

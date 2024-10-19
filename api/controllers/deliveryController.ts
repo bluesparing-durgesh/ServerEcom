@@ -3,6 +3,7 @@ import Delivery from "../models/delivery";
 import { sendErrorResponse } from "../utils/responseHandler";
 import Order, { DeliveryStatus } from "../models/order";
 import { startSession } from "mongoose";
+import Product from "../models/product";
 
 export const updateDeliveryController = async (req: Request, res: Response) => {
   const session = await startSession();
@@ -34,7 +35,7 @@ export const updateDeliveryController = async (req: Request, res: Response) => {
       { orderId },
       {
         $set: { currentStatus, deliveredDate },
-        $push: { orderSteps: {...newStep,samay:new Date().toISOString()} },
+        $push: { orderSteps: { ...newStep, samay: new Date().toISOString() } },
       },
       { new: true, session }
     );
@@ -49,12 +50,12 @@ export const updateDeliveryController = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       message: "Delivery updated successfully",
-      success:true
+      success: true,
     });
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-console.log(error)
+    console.log(error);
     return sendErrorResponse(res, 500, "Error updating delivery");
   }
 };
@@ -68,7 +69,7 @@ export const updateCanceledDeliveryController = async (
     const { orderId } = req.params;
     const { newOrderSteps } = req.body;
     const order = await Order.findByIdAndUpdate(
-      {_id: orderId },
+      { _id: orderId },
       { $set: { isDelivered: DeliveryStatus.Canceled } },
       { new: true, session }
     );
@@ -83,7 +84,7 @@ export const updateCanceledDeliveryController = async (
         $set: {
           orderSteps: newOrderSteps,
           currentStatus: DeliveryStatus.Canceled,
-          deliveredDate:new Date().toISOString(),
+          deliveredDate: new Date().toISOString(),
         },
       },
       { new: true, session }
@@ -93,16 +94,24 @@ export const updateCanceledDeliveryController = async (
       await session.abortTransaction();
       return res.status(404).json({ message: "Delivery not found" });
     }
+
+    await Product.findByIdAndUpdate(
+      { _id: order.product },
+      {
+        $inc: { quantity: 1 },
+      },
+      { session }
+    );
     await session.commitTransaction();
     session.endSession();
     return res.status(200).json({
       message: "Delivery updated successfully",
       data: updatedDelivery,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     await session.abortTransaction();
     session.endSession();
-    console.log(error)
+    console.log(error);
     return sendErrorResponse(res, 500, "Error updating delivery");
   }
 };

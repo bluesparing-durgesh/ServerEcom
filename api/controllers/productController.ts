@@ -303,3 +303,51 @@ export const AddProductByExcel = async (req: Request, res: Response) => {
     return sendErrorResponse(res, 500, "Error while uploading excel");
   }
 };
+
+export const updateRatingController = async (req: Request, res: Response) => {
+  try {
+    const { _id } = req.user;
+    console.log(req.user);
+    if (!_id) {
+      return sendErrorResponse(res, 400, "user information is neccessary");
+    }
+    const { id, rating } = req.body;
+    let newRating;
+    const preP = await Product.findById(id);
+
+    if (!preP) {
+      return sendErrorResponse(res, 404, "product not found");
+    }
+    if (preP.rating === 0) {
+      newRating = rating;
+    } else {
+      newRating = (preP.rating + rating) / 2;
+    }
+    const product = await Product.findByIdAndUpdate(
+      { _id: id },
+      { $set: { rating: newRating } },
+      { new: true }
+    );
+
+    return res.status(200).send(product);
+  } catch (error) {
+    return sendErrorResponse(res, 500, "Error while updating rating");
+  }
+};
+
+export const updateProductsQuantity = async (
+  productIds: string[],
+  increment: boolean
+) => {
+  try {
+    await Product.updateMany(
+      { _id: { $in: productIds } },
+      {
+        $inc: { rating: increment ? 1 : -1 },
+      },
+      { new: true }
+    );
+  } catch (error) {
+    throw error;
+  }
+};
