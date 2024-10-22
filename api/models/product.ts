@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
-// Define an interface representing a document in MongoDB.
+
 export interface IProduct extends Document {
   name: string;
   slug: string;

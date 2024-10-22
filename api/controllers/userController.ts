@@ -92,7 +92,7 @@ export const getAllUserController = async (req: Request, res: Response) => {
     if (user.role.toLowerCase() !== "admin") {
       return sendErrorResponse(res, 403, "only admin can access .");
     }
-    const users = await User.find({ role: "user" }).select('-password');
+    const users = await User.find({ role: "user" }).select('-password').sort({ createdAt: -1 });
     return res.status(200).send({ success: true, users });
   } catch (error) {
     return sendErrorResponse(res, 500, "error while fetching user");

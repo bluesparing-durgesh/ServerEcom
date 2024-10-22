@@ -29,7 +29,7 @@ const DeliverySchema: Schema = new Schema({
     required: true,
   },
   orderSteps: { type: [StepSchema], required: true },
-});
+},{timestamps:true});
 
 const Delivery: Model<IDelivery> = mongoose.model<IDelivery>(
   "Delivery",

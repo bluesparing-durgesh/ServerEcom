@@ -126,7 +126,7 @@ export const getdeliveryByOrderIdController = async (
     if (orderId === "undefined") {
       return sendErrorResponse(res, 400, "order id is required");
     }
-    const delivery = await Delivery.findOne({ orderId });
+    const delivery = await Delivery.findOne({ orderId }).sort({ createdAt: -1 });
     return res.status(200).json({
       success: true,
       data: delivery,

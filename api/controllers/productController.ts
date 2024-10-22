@@ -4,6 +4,7 @@ import Product from "../models/product";
 import { sendErrorResponse } from "../utils/responseHandler";
 import XLSX from "xlsx";
 import Category from "../models/category";
+import { addReview } from "./reviewController";
 export const createProductController = async (req: Request, res: Response) => {
   try {
     const {
@@ -287,7 +288,6 @@ export const AddProductByExcel = async (req: Request, res: Response) => {
         })
       );
 
-      // Filter out null products in case of any errors
       const validProducts = products.filter((product) => product !== null);
 
       if (validProducts.length > 0) {
@@ -307,29 +307,34 @@ export const AddProductByExcel = async (req: Request, res: Response) => {
 export const updateRatingController = async (req: Request, res: Response) => {
   try {
     const { _id } = req.user;
-    console.log(req.user);
     if (!_id) {
       return sendErrorResponse(res, 400, "user information is neccessary");
     }
-    const { id, rating } = req.body;
+    const { id, rating, review } = req.body;
     let newRating;
-    const preP = await Product.findById(id);
 
-    if (!preP) {
-      return sendErrorResponse(res, 404, "product not found");
-    }
-    if (preP.rating === 0) {
-      newRating = rating;
+    const revieRes = await addReview(id, _id, rating, review);
+    if (revieRes) {
+      const preP = await Product.findById(id);
+
+      if (!preP) {
+        return sendErrorResponse(res, 404, "product not found");
+      }
+      if (preP.rating === 0) {
+        newRating = rating;
+      } else {
+        newRating = (preP.rating + rating) / 2;
+      }
+      const product = await Product.findByIdAndUpdate(
+        { _id: id },
+        { $set: { rating: newRating } },
+        { new: true }
+      );
+
+      return res.status(200).send({ success: true });
     } else {
-      newRating = (preP.rating + rating) / 2;
+      return sendErrorResponse(res, 500, "Error while updating rating");
     }
-    const product = await Product.findByIdAndUpdate(
-      { _id: id },
-      { $set: { rating: newRating } },
-      { new: true }
-    );
-
-    return res.status(200).send(product);
   } catch (error) {
     return sendErrorResponse(res, 500, "Error while updating rating");
   }
@@ -349,5 +354,26 @@ export const updateProductsQuantity = async (
     );
   } catch (error) {
     throw error;
+  }
+};
+
+export const searchProductSuggestionsController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const searchQuery = req.query.q?.toString() || "";
+    if (!searchQuery) {
+      return sendErrorResponse(res, 404, "no query");
+    }
+    const suggestions = await Product.find({
+      name: { $regex: searchQuery, $options: "i" },
+    })
+      .select("name category")
+      .limit(10);
+
+    res.json({ data: suggestions });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "Error fetching product suggestions");
   }
 };

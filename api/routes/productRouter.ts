@@ -1,3 +1,4 @@
+import { searchProductSuggestionsController } from './../controllers/productController';
 
 import { Router } from 'express';
 import { verifyJwt } from '../Middlewares/verifyJwt';
@@ -15,5 +16,6 @@ router.get("/get/:id?",getAllProductsController);
 router.get("/getbyname/:name",getProductByNameController);
 router.get("/filter",filterProductsController);
 router.get("/get-all",verifyJwt,getAllProductOnceController);
+router.get("/search-suggestions",searchProductSuggestionsController);
 router.put("/update-rating",verifyJwt,updateRatingController);
 export default router;

@@ -102,3 +102,16 @@ export const getAllCategoriesController = async (
     return sendErrorResponse(res, 500, "Error in fetching categories");
   }
 };
+
+export const getCategoryByIdController = async (req: Request, res: Response) => {
+  try {
+    const { cid } = req.params;
+    if (!cid) {
+      return sendErrorResponse(res, 404, "CategoryID not found");
+    }
+    const data = await Category.findById(cid);
+    return res.send({ success: true, data });
+  } catch (error) {
+    return sendErrorResponse(res, 500, "Error in fetching categories");
+  }
+};

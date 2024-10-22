@@ -134,7 +134,7 @@ export const getUserOrderController = async (req: Request, res: Response) => {
       return sendErrorResponse(res, 400, "User information is missing.");
     }
     const user = req.user._id;
-    const orderRecord = await Order.find({ user });
+    const orderRecord = await Order.find({ user }).sort({ createdAt: -1 });
     return res.status(200).send({
       success: true,
       message: "order feched successfully",
@@ -155,7 +155,7 @@ export const getAllOrderController = async (req: Request, res: Response) => {
       return sendErrorResponse(res, 403, "only admin can access .");
     }
 
-    const orders = await Order.find();
+    const orders = await Order.find().sort({ createdAt: -1 });
 
     return res.status(200).send({ success: true, order: orders });
   } catch (error) {
