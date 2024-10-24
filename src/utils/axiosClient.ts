@@ -5,8 +5,8 @@ import {
   IRefreshTokenRes,
 } from "./statuses";
 
-// const url = "https://serverecom.onrender.com/api/v1"
-const url = "http://localhost:4000/api/v1";
+const url = "https://serverecom.onrender.com/api/v1"
+// const url = "http://localhost:4000/api/v1";
 const client = axios.create({ baseURL: url });
 
 export const request = <T, E = IApiError>(
