@@ -11,7 +11,7 @@ import {
   IDeleteCartRes,
   IGetCountRes,
 } from "./ICart";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 import {
   addCart,
   deleteCart,

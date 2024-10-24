@@ -9,31 +9,22 @@ import {
   useCancelDelivery,
   useGetDelivery,
 } from "../../Hook/delivery/useDelivery";
-import React, { FC, startTransition, useEffect, useState } from "react";
+import  { FC, startTransition, useEffect, useState } from "react";
 import {
   Alert,
   Button,
   CircularProgress,
   Grid2,
   Modal,
-  Slide,
 } from "@mui/material";
-import { DeliveryStatus, PaymentMethod } from "../../types";
+import { DeliveryStatus, PaymentMethod } from "../../utils/statuses";
 import { useGetrOrderById } from "../../Hook/order/useOrder";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUpdateProductRating } from "../../Hook/product/useProduct";
 import RatingAndReview from "./RatingAndReview";
-import { TransitionProps } from "@mui/material/transitions";
 import { useChckReviews } from "../../Hook/review/useReview";
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+
 interface OrderStatusProps {
   orderId: string;
 }

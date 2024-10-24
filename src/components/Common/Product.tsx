@@ -1,4 +1,4 @@
-import React, { startTransition, useEffect, useRef, useState } from "react";
+import  { startTransition, useEffect, useRef, useState } from "react";
 import { Box, Grid, CircularProgress, Alert, Grid2 } from "@mui/material";
 import { IProduct } from "../../Hook/product/Iproduct";
 import Header from "./Header/Header";
@@ -12,7 +12,6 @@ import CategoryDropDown from "../../utils/CategroryDropDown";
 import { useAuth } from "../../context/AuthContext";
 
 import { useGetCarts } from "../../Hook/cart/useCart";
-import { addCartInWeb } from "../../utils/CartHandler";
 import { CartMapper } from "../../Hook/cart/ICart";
 import ProductCard from "./ProductCard";
 import Footer from "./Footer";
@@ -21,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 const Product = () => {
   const { user } = useAuth();
   const { data, error, fetchNextPage, hasNextPage, status } = useGetProducts();
-  const { data: carts, isError: Carterr } = useGetCarts(!!user);
+  const { data: carts, } = useGetCarts(!!user);
   const [filterProduct, setFilterProduct] = useState<IProduct[]>([]);
   const scrollParentRef = useRef(null);
   const allProducts = data?.pages.flatMap((page) => page.products) || [];
@@ -55,10 +54,7 @@ const Product = () => {
     }
   }, []);
   const {
-    data: filteredProducts,
     refetch,
-    isError,
-    isLoading,
   } = useFilterProduct(selectedCategory, minPrice, maxPrice, ratingValue);
 
   // useEffect to refetch products whenever the filters change

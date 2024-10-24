@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
-  Drawer,
   List,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   Divider,
@@ -18,13 +16,8 @@ import {
   Menu,
 } from "@mui/icons-material";
 
-import ViewProduct from "./manageProduct/ViewProduct";
-import ViewCate from "./manageCategory/ViewCate";
-import ViewUser from "./ManagaeUser/ViewUser";
-import { SidebarItem } from "../../types";
-import DashBoard from "./DashBoard";
-import ManageOrder from "./ManageOrder";
-import AddProductExcel from "./manageProduct/AddProductExcel";
+import { SidebarItem } from "../../utils/statuses";
+
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { NavLink } from "react-router-dom";
 export const sidebarItems: SidebarItem[] = [

@@ -5,7 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useGetCategories } from "../Hook/category/useCategory";
-import { ICategory, SelectedCategoryProps } from "../types";
+import { SelectedCategoryProps } from "./statuses";
+import { ICategory } from "../Hook/category/ICategory";
 
 const CategoryDropDown: React.FC<SelectedCategoryProps> = ({
   selectedCategory,

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { IOrder } from "../../Hook/order/IOrder";
-import { PaymentMethod } from "../../types";
+import { PaymentMethod } from "../../utils/statuses";
 import {  useNavigate } from "react-router-dom";
 import { startTransition } from "react";
 

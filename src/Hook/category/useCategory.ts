@@ -11,7 +11,7 @@ import {
   IGetCateByIdRes,
   IgetCategoryRes,
 } from "./ICategory";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 import {
   addCategory,
   deletCategory,

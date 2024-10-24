@@ -10,7 +10,7 @@ import {
   IDeliveryRes,
   IUpdateDeliveryPayload,
 } from "./IDelivery";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 import {
   getDelivery,
   updateCancelDelivery,
@@ -34,7 +34,7 @@ export const useUpdateDelivery = () => {
   >({
     mutationFn: ({ id, data }) => updateDelivery(data, id),
     onSuccess: () => {
-      queryClient.invalidateQueries(["allOrders"]);
+      queryClient.invalidateQueries({ queryKey: ["allOrders"] });
     },
   });
 };
@@ -48,7 +48,7 @@ export const useCancelDelivery = () => {
   >({
     mutationFn: ({ id, data }) => updateCancelDelivery(data, id),
     onSuccess: () => {
-      queryClient.invalidateQueries(["delivery"]);
+      queryClient.invalidateQueries({queryKey:["delivery"]});
     },
   });
 };

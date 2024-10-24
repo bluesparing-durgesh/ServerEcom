@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 import {
   DeleteProductRes,
   IaddOrUpdateProductRes,

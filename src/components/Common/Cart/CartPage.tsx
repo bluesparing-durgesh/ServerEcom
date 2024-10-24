@@ -7,7 +7,6 @@ import {
   CardContent,
   Button,
   Alert,
-  Grid,
   IconButton,
   TextField,
   Grid2,
@@ -16,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ICart } from "../../../Hook/cart/ICart";
 import { useDeleteCart, useUpdateCart } from "../../../Hook/cart/useCart";
 import { Add, Remove, Delete } from "@mui/icons-material";
-import { CheckoutProps, OrderItem } from "../../../types";
+import { CheckoutProps, OrderItem } from "../../../utils/statuses";
 import { addCartInWeb } from "../../../utils/CartHandler";
 interface CartPageProps {
   iCarts: ICart[] | undefined;

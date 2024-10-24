@@ -1,4 +1,4 @@
-import { IOrderForm, IShippingAddress, OrderItem } from "../../types";
+import {  IShippingAddress, OrderItem } from "../../utils/statuses";
 
 enum DeliveryStatus {
   ORDERED = "order complete",

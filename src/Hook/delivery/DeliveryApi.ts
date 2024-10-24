@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { request } from "../../utils/axiosClient";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 import {
   IApiSuccess,
   ICancelDeliveryPayload,

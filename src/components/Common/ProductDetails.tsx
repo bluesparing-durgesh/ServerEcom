@@ -40,7 +40,7 @@ export default function ProductDetails() {
   const [like, setLike] = useState(false);
   const { data } = useGetCategory(cid!);
   const { user } = useAuth();
-  const { data: carts, isError: Carterr } = useGetCarts(!!user);
+  const { data: carts } = useGetCarts(!!user);
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -56,8 +56,6 @@ export default function ProductDetails() {
   const {
     mutate: addCart,
     status: isAdding,
-    isError: isAddErr,
-    error: AddErr,
   } = useAddCart();
   const { mutate: deleteCart, status: isRemoving } = useDeleteCart();
   function isProductInCart(): boolean {

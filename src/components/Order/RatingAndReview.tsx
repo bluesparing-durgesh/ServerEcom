@@ -10,10 +10,11 @@ const RatingAndReview: React.FC<RatingAndReviewProps> = ({ onSubmit }) => {
   const [review, setReview] = useState<string>("");
 
   const handleRatingChange = (
-    event: React.SyntheticEvent,
+    event: React.SyntheticEvent<Element, Event>,
     newValue: number | null
   ) => {
-    setRating(newValue);
+    console.log(event)
+    setRating(newValue); 
   };
 
   const handleReviewChange = (event: React.ChangeEvent<HTMLInputElement>) => {

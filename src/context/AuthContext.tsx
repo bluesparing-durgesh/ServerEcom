@@ -5,7 +5,7 @@ import {
   ReactNode,
 
 } from "react";
-import { IAuthContextType, IUser } from "../types";
+import { IAuthContextType, IUser } from "../utils/statuses";
 
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 

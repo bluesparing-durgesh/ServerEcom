@@ -1,4 +1,4 @@
-import { CheckoutProps, IOrderForm } from "../types";
+import { CheckoutProps, IOrderForm } from "./statuses";
 
 const CART_STORAGE_KEY = "userCart";
 const ORDER_STORAGE_KEY = "userOrder";

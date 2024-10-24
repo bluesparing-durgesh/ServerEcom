@@ -5,7 +5,7 @@ import {
   RefundRes,
   UpdateOrderProps,
 } from "./IOrder";
-import { IApiError, IOrderForm } from "../../types";
+import { IApiError, IOrderForm } from "../../utils/statuses";
 import {
   addOrder,
   getAllOrder,

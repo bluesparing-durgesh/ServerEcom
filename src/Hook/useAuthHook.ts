@@ -1,7 +1,6 @@
 import {
   keepPreviousData,
   useMutation,
-  useQueries,
   useQuery,
 } from "@tanstack/react-query";
 import {
@@ -11,7 +10,7 @@ import {
   IloginRes,
   ISignupPayload,
   IUser,
-} from "../types";
+} from "../utils/statuses";
 import { request } from "../utils/axiosClient";
 import { AxiosResponse } from "axios";
 

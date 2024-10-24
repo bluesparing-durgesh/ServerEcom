@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IApiError, IOrderForm } from "../../types";
+import { IApiError, IOrderForm } from "../../utils/statuses";
 import { request } from "../../utils/axiosClient";
 import {
   IOrderResponse,

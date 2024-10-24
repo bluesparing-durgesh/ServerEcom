@@ -69,9 +69,6 @@ const Header = () => {
   const debounceVal = useDebounce(searchTerm, 300);
   const {
     data: suggestions,
-    isLoading,
-    isError,
-    error,
   } = useGetSearchSuggestion(debounceVal.trim().length > 0 ? debounceVal : "");
 
   const handleMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {

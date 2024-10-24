@@ -4,7 +4,7 @@ import {
   IGetProductReviewRes,
   IGetUserReviewRes,
 } from "./IReview";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 import {
   checkExistReview,
   getProductReviews,

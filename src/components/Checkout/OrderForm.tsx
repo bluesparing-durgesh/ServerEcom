@@ -8,7 +8,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { CheckoutProps, IOrderForm, PaymentMethod } from "../../types";
+import { CheckoutProps, IOrderForm, PaymentMethod } from "../../utils/statuses";
 import { useNavigate } from "react-router-dom";
 import { addOrderInWeb } from "../../utils/CartHandler";
 import { useAddOrder } from "../../Hook/order/useOrder";

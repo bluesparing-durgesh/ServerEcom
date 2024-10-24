@@ -8,7 +8,7 @@ import {
   IgetCategoryRes,
 } from "./ICategory";
 import { request } from "../../utils/axiosClient";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 
 export const addCategory = async (
   data: ICategoryPayload

@@ -1,6 +1,4 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import ProtectedRoute from "../../utils/ProtectedRoute";
-import Header from "../Common/Header/Header";
 import { useForm, Controller } from "react-hook-form";
 import {
   Alert,
@@ -13,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { IndianBanks } from "../../types";
+import { IndianBanks } from "../../utils/statuses";
 import { startTransition, useEffect } from "react";
 import { useUpdatePayment } from "../../Hook/order/useOrder";
 import { UpdateOrderProps } from "../../Hook/order/IOrder";

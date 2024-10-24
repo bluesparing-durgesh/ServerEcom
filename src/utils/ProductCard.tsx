@@ -178,7 +178,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <>{isUpdateClick && <UpdateProduct p={product!} />}</>
+        <>{isUpdateClick && <UpdateProduct />}</>
       </Modal>
     </>
   );

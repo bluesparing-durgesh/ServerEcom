@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { IndianBanks } from "../../types";
+import { IndianBanks } from "../../utils/statuses";
 import {  startTransition, useEffect } from "react";
 import { useRefundOrder } from "../../Hook/order/useOrder";
 import { UpdateOrderProps } from "../../Hook/order/IOrder";

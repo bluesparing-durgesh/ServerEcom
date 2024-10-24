@@ -6,8 +6,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Typography,
-  Container,
   Box,
 } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -15,10 +13,7 @@ import { useGetCategories } from "../../../Hook/category/useCategory";
 import { useAddProduct } from "../../../Hook/product/useProduct";
 import TableWrapper from "../../../utils/TableWrapper";
 
-interface ICategory {
-  _id: string;
-  name: string;
-}
+
 
 interface IProduct {
   name: string;
@@ -56,8 +51,6 @@ const AddProduct = () => {
   const { data } = useGetCategories();
   const {
     mutate: addp,
-    isError,
-    error: AError,
   } = useAddProduct();
 
   const handleChange =

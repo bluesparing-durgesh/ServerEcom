@@ -5,7 +5,7 @@ import Wrapper from "../Wrapper";
 
 const CartContainer = () => {
   const { user } = useAuth();
-  const { data: carts, isError: Carterr } = useGetCarts(!!user);
+  const { data: carts } = useGetCarts(!!user);
   return (
     <Wrapper>
       <CartPage iCarts={carts?.cartEntries} />

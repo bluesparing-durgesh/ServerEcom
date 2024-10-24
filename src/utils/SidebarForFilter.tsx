@@ -15,7 +15,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 import Rating from "@mui/material/Rating";
-import { IFilterProps } from "../types";
+import { IFilterProps } from "./statuses";
 
 const  SidebarForFilter: React.FC<IFilterProps>=({setSortBy,setRating,setPriceRange,priceRange,sortBy,rating})=> {
   const [open, setOpen] = React.useState(false);

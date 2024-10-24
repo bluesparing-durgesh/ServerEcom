@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { clearOrderWebCart, getOrderFromWeb } from "../../utils/CartHandler";
-import { IndianBanks, IOrderForm } from "../../types";
+import { IndianBanks, IOrderForm } from "../../utils/statuses";
 import { useAddOrder } from "../../Hook/order/useOrder";
 import { useDeleteUserCart } from "../../Hook/cart/useCart";
 import Wrapper from "../Common/Wrapper";

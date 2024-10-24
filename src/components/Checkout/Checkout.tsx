@@ -1,4 +1,4 @@
-import { CheckoutProps } from "../../types";
+import { CheckoutProps } from "../../utils/statuses";
 import { getCartFromWeb } from "../../utils/CartHandler";
 
 import Wrapper from "../Common/Wrapper";

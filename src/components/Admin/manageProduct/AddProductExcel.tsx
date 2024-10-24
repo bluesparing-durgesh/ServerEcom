@@ -3,7 +3,6 @@ import {
   Box,
   Typography,
   Input,
-  Paper,
   Button,
   CircularProgress,
 } from "@mui/material";

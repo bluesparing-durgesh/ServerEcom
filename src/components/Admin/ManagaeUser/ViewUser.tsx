@@ -6,7 +6,7 @@ import {
 } from "material-react-table";
 
 import {  CircularProgress, Alert } from "@mui/material";
-import { IUser } from "../../../types";
+import { IUser } from "../../../utils/statuses";
 import TableWrapper from "../../../utils/TableWrapper";
 import { useGetUsers } from "../../../Hook/useAuthHook";
 import dayjs from "dayjs";

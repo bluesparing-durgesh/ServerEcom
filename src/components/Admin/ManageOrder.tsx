@@ -11,7 +11,7 @@ import TableWrapper from "../../utils/TableWrapper";
 import dayjs from "dayjs";
 import { IOrder } from "../../Hook/order/IOrder";
 import { MaterialReactTable, MRT_ColumnDef } from "material-react-table";
-import { DeliveryStatus, PaymentMethod } from "../../types";
+import { DeliveryStatus, PaymentMethod } from "../../utils/statuses";
 import { useUpdateDelivery } from "../../Hook/delivery/useDelivery";
 import { IOrderSetpProps } from "../../Hook/delivery/IDelivery";
 import { useNavigate } from "react-router-dom";
@@ -129,7 +129,7 @@ const ManageOrder = () => {
       filterVariant: "select",
       Cell: ({ cell }) => (
         <Chip
-          label={cell.getValue()}
+          label={cell.getValue() as string}
           color={
             cell.getValue() === DeliveryStatus.DELIVERED
               ? "success"
@@ -223,7 +223,7 @@ const ManageOrder = () => {
   };
 
   const isEligibleForRefund = (order: IOrder) => {
-    if (order.isPaid && order.isDelivered === DeliveryStatus.Refunding) {
+    if (order.isPaid && order.isDelivered === DeliveryStatus.Refunding as string) {
       return true;
     }
     return false;

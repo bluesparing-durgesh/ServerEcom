@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import { IApiError } from "../types";
+import { IApiError } from "./statuses";
 
-// const url = "https://serverecom.onrender.com/api/v1";
-const url = "http://localhost:8000/api/v1";
+const url = "https://serverecom.onrender.com/api/v1"
+// const url = "http://localhost:8000/api/v1";
 const client = axios.create({ baseURL: url });
 
 export const request = <T, E = IApiError>(

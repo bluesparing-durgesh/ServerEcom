@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { ISignupPayload } from "../../types";
+import { ISignupPayload } from "../../utils/statuses";
 import { useSignup } from "../../Hook/useAuthHook";
 import { useAuth } from "../../context/AuthContext";
 

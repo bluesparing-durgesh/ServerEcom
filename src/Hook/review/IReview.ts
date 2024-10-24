@@ -1,4 +1,4 @@
-import { IUser } from "../../types";
+import { IUser } from "../../utils/statuses";
 import { IProduct } from "../product/Iproduct";
 
 export interface IGetProductReview {

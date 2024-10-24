@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IApiError } from "../../types";
+import { IApiError } from "../../utils/statuses";
 import { request } from "../../utils/axiosClient";
 import {
   IAddCartRes,

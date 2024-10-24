@@ -1,8 +1,5 @@
 import { useMemo, useState } from "react";
 import { MaterialReactTable, MRT_ColumnDef } from "material-react-table";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Modal,
@@ -38,9 +35,9 @@ export default function ViewCate() {
   const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
 
   // Fetch categories with pagination
-  const { data, isLoading, error } = useGetCategories();
+  const { data} = useGetCategories();
   const { categories } = data || { categories: [], hasNext: false };
-  const { mutate: addCate, isError, error: AError } = useAddCategory();
+  const { mutate: addCate} = useAddCategory();
   const { mutate: updateCate, status, error: updatError } = useUpdateCategory();
   const {
     mutate: deleteCate,
