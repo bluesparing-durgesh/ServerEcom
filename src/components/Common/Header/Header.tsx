@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Search as SearchIcon } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Badge, BadgeProps, Grid } from "@mui/material";
+import { Badge, BadgeProps, Button, Grid } from "@mui/material";
 import { useAuth } from "../../../context/AuthContext";
 import { useGetCartsCount } from "../../../Hook/cart/useCart";
 import { useCallback } from "react";
@@ -212,6 +212,19 @@ const Header = () => {
                 </StyledBadge>
               </IconButton>
             </Link>
+
+            {
+              user?
+              <Button onClick={handleLogOut} size="small" color="primary" variant="contained" sx={{fontSize:'10px',mx:1}}>
+               Sign Out
+              </Button>
+              :
+              <Link to='/login'>
+              <Button size="small" color="primary" variant="contained" sx={{fontSize:'10px',mx:1}}>
+                Sign In
+              </Button>
+              </Link>
+            }
 
             <IconButton onClick={handleMenu} sx={{ p: 0 }}>
               <Avatar alt="User Avatar" src="/static/images/avatar/1.jpg" />

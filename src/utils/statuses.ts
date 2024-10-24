@@ -138,3 +138,8 @@ export interface IGetAllUserRes{
   success:boolean;
   users:IUser[]
 }
+
+export interface IRefreshTokenRes{
+  refreshToken:string;
+  accessToken:string;
+}
