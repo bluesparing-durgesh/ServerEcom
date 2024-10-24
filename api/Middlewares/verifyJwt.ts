@@ -27,6 +27,6 @@ export const verifyJwt = async (req: Request, res: Response, next: NextFunction)
     req.user = user;
     next();
   } catch (error) {
-    sendErrorResponse(res, 500, "token Internal server error");
+    sendErrorResponse(res, 401, "token Internal server error");
   }
 };
