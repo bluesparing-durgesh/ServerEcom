@@ -19,34 +19,18 @@ An ecommerce store built with MERN stack, and utilizes third party API's. This e
 
 ## Demo
 
-This application is deployed on Vercel Please check it out :smile: [here](https://mern-store-gold.vercel.app).
+This application is deployed on Vercel Please check it out :smile: [here](https://dk-ecommerce.netlify.app/).
 
-See admin dashboard [demo](https://mernstore-bucket.s3.us-east-2.amazonaws.com/admin.mp4)
+<!-- See admin dashboard [demo](https://mernstore-bucket.s3.us-east-2.amazonaws.com/admin.mp4) -->
 
-## Docker Guide
 
-To run this project locally you can use docker compose provided in the repository. Here is a guide on how to run this project locally using docker compose.
-
-Clone the repository
-```
-git clone https://github.com/mohamedsamara/mern-ecommerce.git
-```
-
-Edit the dockercompose.yml file and update the the values for MONGO_URI and JWT_SECRET
-
-Then simply start the docker compose:
-
-```
-docker-compose build
-docker-compose up
-```
 
 ## Database Seed
 
 * The seed command will create an admin user in the database
 * The email and password are passed with the command as arguments
 * Like below command, replace brackets with email and password. 
-* For more information, see code [here](server/utils/seed.js)
+
 
 ```
 npm run seed:db [email-***@****.com] [password-******] // This is just an example.
@@ -59,7 +43,7 @@ npm run seed:db [email-***@****.com] [password-******] // This is just an exampl
 Some basic Git commands are:
 
 ```
-git clone https://github.com/mohamedsamara/mern-ecommerce.git
+git clone https://github.com/Durgesh2008/ServerEcom.git
 cd project
 npm install
 ```
@@ -68,14 +52,11 @@ npm install
 
 Create `.env` file for both client and server. See examples:
 
-[Frontend ENV](client/.env.example)
+[Client ENV](client/.env.example)
 
-[Backend ENV](server/.env.example)
+[Server ENV](server/.env.example)
 
 
-## Vercel Deployment
-
-Both frontend and backend are deployed on Vercel from the same repository. When deploying on Vercel, make sure to specifiy the root directory as `client` and `server` when importing the repository. See [client vercel.json](client/vercel.json) and [server vercel.json](server/vercel.json).
 
 ## Start development
 
