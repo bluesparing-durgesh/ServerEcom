@@ -12,6 +12,10 @@ export default defineConfig({
       Hook: path.resolve(__dirname, './src/Hook'),
     },
   },
+  server: {
+    proxy: {
+      "/api": "http://your-backend-ip-or-domain:port",
+    },},
    base: '/',
   plugins: [react()],
 });
