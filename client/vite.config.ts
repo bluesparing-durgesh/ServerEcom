@@ -12,5 +12,6 @@ export default defineConfig({
       Hook: path.resolve(__dirname, './src/Hook'),
     },
   },
+   base: '/',
   plugins: [react()],
 });
