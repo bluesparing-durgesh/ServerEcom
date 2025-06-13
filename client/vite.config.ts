@@ -14,7 +14,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": "http://your-backend-ip-or-domain:port",
+      "/api": "http://213.210.21.186:7001"
     },},
    base: '/',
   plugins: [react()],
