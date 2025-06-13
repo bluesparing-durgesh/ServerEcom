@@ -19,7 +19,7 @@ export const updateDeliveryController = async (req: Request, res: Response) => {
     if (currentStatus === DeliveryStatus.DELIVERED) {
       deliveredDate = newStep.samay;
     }
-    // Update the Order status
+    
     const order = await Order.findByIdAndUpdate(
       { _id: orderId },
       { $set: { isDelivered: currentStatus } },

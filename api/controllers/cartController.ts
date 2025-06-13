@@ -16,16 +16,16 @@ export const createCartEntry = async (req: Request, res: Response) => {
       return sendErrorResponse(res, 400, "Product is required");
     }
 
-    // Check if the product exists
+    
     const existingProduct = await Product.findById(product);
     if (!existingProduct) {
       return sendErrorResponse(res, 404, "Product not found");
     }
 
-    // Create the cart entry
+    
     const cartEntry = await Cart.create({ user, product, quantity: 1 });
 
-    // Populate the product information
+    
     const cartData = await Cart.findById(cartEntry._id).populate("product");
 
     return res.status(201).json({
@@ -34,12 +34,12 @@ export const createCartEntry = async (req: Request, res: Response) => {
       cartData,
     });
   } catch (error) {
-    console.error("Error adding product to cart:", error); // Log the error for debugging
+    console.error("Error adding product to cart:", error); 
     return sendErrorResponse(res, 500, "Error in adding product to cart");
   }
 };
 
-// Get All Cart Entries for a User
+
 export const getUserCart = async (req: Request, res: Response) => {
   try {
     const userId = req.user._id;
@@ -53,14 +53,14 @@ export const getUserCart = async (req: Request, res: Response) => {
   }
 };
 
-// Update Cart Entry
+
 export const updateCartEntry = async (req: Request, res: Response) => {
   try {
     const { quantity } = req.body as {
       quantity: number;
     };
     const { cartId } = req.params;
-    // Validate input
+    
     if (!cartId || typeof quantity !== "number") {
       return sendErrorResponse(res, 400, "Cart ID and quantity are required");
     }

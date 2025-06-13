@@ -1,7 +1,6 @@
 import { getAllUserController, refreshAccessToken } from './../controllers/userController';
 import { Router } from 'express';
 import { login, register } from '../controllers/userController';
-import { verify } from 'crypto';
 import { verifyJwt } from '../Middlewares/verifyJwt';
 import { getDashboardStats } from '../controllers/adminDashboard';
 const router = Router();

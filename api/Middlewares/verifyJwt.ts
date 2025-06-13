@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import User from "../models/user";
 
 export const verifyJwt = async (req: Request, res: Response, next: NextFunction) => {
-
   try {
     const token =
       req.cookies?.accessToken ||

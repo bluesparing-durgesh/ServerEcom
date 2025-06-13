@@ -15,7 +15,10 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URI,
+  credentials: true,
+}));
 app.get("/", async (req: Request, res: Response) => {
   return res.send("hello");
 });
