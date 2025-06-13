@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Search as SearchIcon } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Badge, BadgeProps, Button, Grid, Grid2, Skeleton } from "@mui/material";
+import { Badge, BadgeProps, Button, Grid2, Skeleton } from "@mui/material";
 import { useAuth } from "../../../context/AuthContext";
 import { useGetCartsCount } from "../../../Hook/cart/useCart";
 import { useCallback } from "react";

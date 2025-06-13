@@ -2,7 +2,6 @@ import React from "react";
 import { Alert, CircularProgress, Container, Typography } from "@mui/material";
 import ReviewCard from "./ReviewCard";
 import { useGetProductReviews } from "../../../Hook/review/useReview";
-import { dataTagSymbol } from "@tanstack/react-query";
 interface ReviewListProps {
   pid: string;
 }
