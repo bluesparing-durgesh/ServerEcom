@@ -123,3 +123,26 @@ export const getAllUserController = async (req: Request, res: Response) => {
     return sendErrorResponse(res, 500, "error while fetching user");
   }
 };
+
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+   
+    res
+      .clearCookie("accessToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+      })
+      .clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+      })
+      .status(200)
+      .json({ message: "Logout successful" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+

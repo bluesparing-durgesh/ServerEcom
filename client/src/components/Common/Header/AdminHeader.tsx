@@ -8,13 +8,15 @@ import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useCallback } from "react";
-import {  IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
+import { useLogout } from "Hook/useAuthHook";
 
 const AdminHeader = () => {
   const navigate = useNavigate();
-
-  const handleLogOut = useCallback(() => {
+  const { mutate: logout } = useLogout();
+  const handleLogOut = useCallback(async () => {
     localStorage.clear();
+    logout({})
     navigate("/login");
   }, [navigate]);
 
@@ -75,13 +77,13 @@ const AdminHeader = () => {
               </svg>
             </Typography>
           </Link>
-<Tooltip title='Logout' arrow>
+          <Tooltip title='Logout' arrow>
 
-          <IconButton onClick={handleLogOut}>
-            <LogoutOutlinedIcon sx={{color:"white"}} /> 
-            
-          </IconButton>
-</Tooltip>
+            <IconButton onClick={handleLogOut}>
+              <LogoutOutlinedIcon sx={{ color: "white" }} />
+
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
     </Box>

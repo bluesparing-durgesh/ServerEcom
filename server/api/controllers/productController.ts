@@ -5,6 +5,7 @@ import { sendErrorResponse } from "../utils/responseHandler";
 import XLSX from "xlsx";
 import Category from "../models/category";
 import { addReview } from "./reviewController";
+
 export const createProductController = async (req: Request, res: Response) => {
   try {
     const {
@@ -140,12 +141,13 @@ export const getAllProductsController = async (req: Request, res: Response) => {
     return sendErrorResponse(res, 500, "Error in retrieving products");
   }
 };
+
 export const getAllProductOnceController = async (
   _: Request,
   res: Response
 ) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().populate("category");
 
     const totalProducts = await Product.countDocuments();
 

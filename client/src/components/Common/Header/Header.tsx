@@ -18,6 +18,7 @@ import { useGetCartsCount } from "../../../Hook/cart/useCart";
 import { useCallback } from "react";
 import useDebounce from "../../../Hook/custum/useDebounce";
 import { useGetSearchSuggestion } from "../../../Hook/product/useProduct";
+import { useLogout } from "Hook/useAuthHook";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+    const { mutate: logout } = useLogout();
   const { user } = useAuth();
   const { data } = useGetCartsCount(user?true:false);
   const [searchTerm, setSearchTerm] = React.useState<string>("");
@@ -84,6 +86,7 @@ const Header = () => {
   };
   const handleLogOut = useCallback(() => {
     localStorage.clear();
+    logout({})
     navigate("/login");
     handleClose();
   }, [navigate, handleClose]);

@@ -33,6 +33,9 @@ export interface IloginRes {
   refreshToken: string;
   user: IUser;
 }
+export interface ILogoutRes{
+  message:string;
+}
 export interface IApiError {
   success: boolean;
   msg: string;

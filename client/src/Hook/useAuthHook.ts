@@ -8,6 +8,7 @@ import {
   IGetAllUserRes,
   IloginPayload,
   IloginRes,
+  ILogoutRes,
   ISignupPayload,
   IUser,
 } from "../utils/statuses";
@@ -25,6 +26,19 @@ const loginUser = async (data: IloginPayload): Promise<IloginRes> => {
   });
   return response.data;
 };
+
+
+const logoutUser = async (): Promise<ILogoutRes> => {
+  const response: AxiosResponse<ILogoutRes> = await request<ILogoutRes, IApiError>({
+    url: "/user/logout",
+    method: "POST",
+
+  });
+  
+  return response.data;
+};
+
+
 
 const signupUser = async (data: ISignupPayload): Promise<IUser> => {
   const response: AxiosResponse<IUser> = await request<IUser, IApiError>({
@@ -48,6 +62,12 @@ const getAlluser = async (): Promise<IGetAllUserRes> => {
 export const useLogin = () => {
   return useMutation<IloginRes, IApiError, IloginPayload>({
     mutationFn: loginUser,
+  });
+};
+
+export const useLogout = () => {
+  return useMutation<ILogoutRes, IApiError,{}>({
+    mutationFn: logoutUser,
   });
 };
 

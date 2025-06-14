@@ -22,7 +22,7 @@ const columns: MRT_ColumnDef<IProduct>[] = [
     size: 50,
   },
   {
-    accessorKey: "category",
+    accessorKey: "category.name",
     header: "Category",
     size: 100,
   },

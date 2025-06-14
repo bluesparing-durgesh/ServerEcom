@@ -1,4 +1,4 @@
-import { getAllUserController, refreshAccessToken } from './../controllers/userController';
+import { getAllUserController, logout, refreshAccessToken } from './../controllers/userController';
 import { Router } from 'express';
 import { login, register } from '../controllers/userController';
 import { verifyJwt } from '../Middlewares/verifyJwt';
@@ -10,4 +10,5 @@ router.post("/login",login)
 router.put("/refreshAccessToken",refreshAccessToken)
 router.get("/get-all",verifyJwt,getAllUserController)
 router.get("/dashboard",verifyJwt,getDashboardStats)
+router.post("/logout",verifyJwt,logout)
 export default router;
