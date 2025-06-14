@@ -46,7 +46,7 @@ export const login = async (req: Request, res: Response) => {
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict" as "strict",
+      sameSite: "none" as "none",
     };
     return res
       .status(200)
@@ -84,18 +84,12 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
 
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
-
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict" as "strict",
+      sameSite: "none" as "none",
     };
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-    });
+    
 
 
 
